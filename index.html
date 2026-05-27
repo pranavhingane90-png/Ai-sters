@@ -283,12 +283,44 @@
 
     let selectedDownload = null;
 
-    const demoImages = [
-      "https://picsum.photos/500/500?1",
-      "https://picsum.photos/500/500?2",
-      "https://picsum.photos/500/500?3"
-    ];
+   async function generateImages() {
 
+  let prompt = document.getElementById("prompt").value;
+
+  if(prompt.trim() === "") {
+    alert("Please enter image description");
+    return;
+  }
+
+  let gallery = document.getElementById("gallery");
+
+  gallery.innerHTML = "";
+
+  for(let i = 1; i <= 3; i++) {
+
+    let imageUrl =
+    `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + " cinematic ultra realistic " + i)}`;
+
+    gallery.innerHTML += `
+
+      <div class="card">
+
+        <img src="${imageUrl}">
+
+        <div class="watermark">AI-ster</div>
+
+        <button class="btn download-btn"
+        onclick="openPayment('${imageUrl}')">
+
+          Download HD
+
+        </button>
+
+      </div>
+
+    `;
+  }
+}
     function generateImages() {
 
       let prompt = document.getElementById("prompt").value;
